@@ -7,7 +7,7 @@
 		exports["FitVideo"] = factory();
 	else
 		root["FitVideo"] = factory();
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -104,15 +104,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var FitVideo = function () {
     function FitVideo(wrapper, video) {
         var mode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'cover';
+        var callback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
 
         _classCallCheck(this, FitVideo);
 
         this.wrapper = wrapper;
         this.video = video;
         this.mode = mode;
+        this.callback = callback;
         this.init = this.init.bind(this);
         this.resize = (0, _lodash2.default)(this.resize.bind(this), 250);
-
         video.videoWidth ? this.init() : video.addEventListener('loadedmetadata', this.init);
     }
 
@@ -120,7 +121,6 @@ var FitVideo = function () {
         key: 'init',
         value: function init() {
             this.videoAspect = this.video.videoWidth / this.video.videoHeight;
-
             window.addEventListener('resize', this.resize);
             this.resize();
         }
@@ -151,10 +151,15 @@ var FitVideo = function () {
                 left = this.mode === 'cover' ? (wrapperRect.width - width) * 0.5 : 0;
                 top = this.mode === 'cover' ? 0 : (wrapperRect.height - height) * 0.5;
             }
-
             this.video.style.width = width + 'px';
             this.video.style.height = height + 'px';
             this.video.style.transform = 'translate(' + left + 'px, ' + top + 'px)';
+
+            if (typeof this.callback === 'function') {
+                this.callback({ width: width, height: height });
+            } else {
+                console.warn('FitVideo - callback should be typeof "function"');
+            }
         }
     }]);
 

@@ -1,19 +1,18 @@
 import throttle from 'lodash.throttle'
 
 export default class FitVideo {
-    constructor(wrapper, video, mode = 'cover') {
+    constructor(wrapper, video, mode = 'cover', callback = () => {}) {
         this.wrapper = wrapper;
         this.video = video;
         this.mode = mode;
+        this.callback = callback;
         this.init = this.init.bind(this);
         this.resize = throttle(this.resize.bind(this), 250);
-
         video.videoWidth ? this.init() : video.addEventListener('loadedmetadata', this.init);
     }
 
     init() {
         this.videoAspect = this.video.videoWidth / this.video.videoHeight;
-
         window.addEventListener('resize', this.resize);
         this.resize();
     }
@@ -42,10 +41,15 @@ export default class FitVideo {
             left = this.mode === 'cover' ? (wrapperRect.width - width) * 0.5 : 0;
             top = this.mode === 'cover' ? 0 : (wrapperRect.height - height) * 0.5;
         }
-
         this.video.style.width = `${width}px`;
         this.video.style.height = `${height}px`;
         this.video.style.transform = `translate(${left}px, ${top}px)`;
+
+        if (typeof this.callback === 'function') {
+            this.callback({width, height});
+        } else {
+            console.warn('FitVideo - callback should be typeof "function"');
+        }
     }
 }
 

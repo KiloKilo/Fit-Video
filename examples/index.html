@@ -28,7 +28,7 @@
 <script>
     const wrapper = document.querySelector('#wrapper');
     const video = wrapper.querySelector('video');
-    new FitVideo.default(wrapper, video, 'cover');
+    new FitVideo.default(wrapper, video, 'contain', (dimensions) => {console.log(dimensions)});
 </script>
 </body>
 </html>
