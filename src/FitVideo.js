@@ -31,11 +31,13 @@ export default class FitVideo {
         let left;
 
         if (wrapperAspect > this.videoAspect) {
+            console.log('is < 16/9');
             width = this.mode === 'cover' ? wrapperRect.width : wrapperRect.height * this.videoAspect;
             height = this.mode === 'cover' ? width / this.videoAspect : wrapperRect.height;
             left = this.mode === 'cover' ? 0 : (wrapperRect.width - width ) * 0.5;
             top = this.mode === 'cover' ? (wrapperRect.height - height ) * 0.5 : 0;
         } else {
+            console.log('is 16/9');
             height = this.mode === 'cover' ? wrapperRect.height : wrapperRect.width / this.videoAspect;
             width = this.mode === 'cover' ? height * this.videoAspect : wrapperRect.width;
             left = this.mode === 'cover' ? (wrapperRect.width - width) * 0.5 : 0;
