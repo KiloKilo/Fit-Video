@@ -1,5 +1,3 @@
-import throttle from 'lodash.throttle'
-
 export default class FitVideo {
     constructor(wrapper, video, mode = 'cover', callback = () => {}) {
         this.wrapper = wrapper;
@@ -7,7 +5,7 @@ export default class FitVideo {
         this.mode = mode;
         this.callback = callback;
         this.init = this.init.bind(this);
-        this.resize = throttle(this.resize.bind(this), 250);
+        this.resize = this.resize.bind(this);
         video.videoWidth ? this.init() : video.addEventListener('loadedmetadata', this.init);
     }
 
