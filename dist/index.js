@@ -113,7 +113,7 @@ var FitVideo = function () {
         this.mode = mode;
         this.callback = callback;
         this.init = this.init.bind(this);
-        this.resize = (0, _lodash2.default)(this.resize.bind(this), 150);
+        this.resize = (0, _lodash2.default)(this.resize.bind(this), 200);
         video.videoWidth ? this.init() : video.addEventListener('loadedmetadata', this.init);
     }
 
