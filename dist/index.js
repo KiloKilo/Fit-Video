@@ -113,7 +113,7 @@ var FitVideo = function () {
         this.mode = mode;
         this.callback = callback;
         this.init = this.init.bind(this);
-        this.resize = (0, _lodash2.default)(this.resize.bind(this), 200);
+        this.resize = (0, _lodash2.default)(this.resize.bind(this), 5);
         video.videoWidth ? this.init() : video.addEventListener('loadedmetadata', this.init);
     }
 
@@ -141,11 +141,13 @@ var FitVideo = function () {
             var left = void 0;
 
             if (wrapperAspect > this.videoAspect) {
+                console.log('is < 16/9');
                 width = this.mode === 'cover' ? wrapperRect.width : wrapperRect.height * this.videoAspect;
                 height = this.mode === 'cover' ? width / this.videoAspect : wrapperRect.height;
                 left = this.mode === 'cover' ? 0 : (wrapperRect.width - width) * 0.5;
                 top = this.mode === 'cover' ? (wrapperRect.height - height) * 0.5 : 0;
             } else {
+                console.log('is 16/9');
                 height = this.mode === 'cover' ? wrapperRect.height : wrapperRect.width / this.videoAspect;
                 width = this.mode === 'cover' ? height * this.videoAspect : wrapperRect.width;
                 left = this.mode === 'cover' ? (wrapperRect.width - width) * 0.5 : 0;
