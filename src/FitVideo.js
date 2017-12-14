@@ -7,7 +7,7 @@ export default class FitVideo {
         this.mode = mode;
         this.callback = callback;
         this.init = this.init.bind(this);
-        this.resize = throttle(this.resize.bind(this), 16);
+        this.resize = throttle(this.resize.bind(this), 5);
         video.videoWidth ? this.init() : video.addEventListener('loadedmetadata', this.init);
     }
 
