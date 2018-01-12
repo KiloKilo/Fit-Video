@@ -17,18 +17,31 @@
             background: #666;
             overflow: hidden;
         }
+
+        #videoWrapper {
+            background: red;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 
     <script src="/examples/index.js"></script>
 </head>
 <body>
 <div id="wrapper">
-    <video src="./video.mp4" autoplay loop muted playsinline></video>
+    <div id="videoWrapper">
+        <video src="./video.mp4" autoplay loop muted playsinline></video>
+    </div>
 </div>
 <script>
     const wrapper = document.querySelector('#wrapper');
     const video = wrapper.querySelector('video');
-    new FitVideo.default(wrapper, video, 'contain', (dimensions) => {console.log(dimensions)});
+    new FitVideo.default(wrapper, videoWrapper, video, 'contain', function (dimensions) {
+        console.log(dimensions)
+    });
 </script>
 </body>
 </html>

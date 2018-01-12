@@ -7,7 +7,7 @@
 		exports["FitVideo"] = factory();
 	else
 		root["FitVideo"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
+})(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -96,13 +96,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var FitVideo = function () {
-    function FitVideo(wrapper, video) {
-        var mode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'cover';
-        var callback = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
+    function FitVideo(wrapper, videoWrapper, video) {
+        var mode = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'cover';
+        var callback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
 
         _classCallCheck(this, FitVideo);
 
         this.wrapper = wrapper;
+        this.videoWrapper = videoWrapper;
         this.video = video;
         this.mode = mode;
         this.callback = callback;
@@ -135,6 +136,7 @@ var FitVideo = function () {
             var left = void 0;
 
             if (wrapperAspect > this.videoAspect) {
+                console.log(12);
                 width = this.mode === 'cover' ? wrapperRect.width : wrapperRect.height * this.videoAspect;
                 height = this.mode === 'cover' ? width / this.videoAspect : wrapperRect.height;
                 left = this.mode === 'cover' ? 0 : (wrapperRect.width - width) * 0.5;
@@ -145,9 +147,10 @@ var FitVideo = function () {
                 left = this.mode === 'cover' ? (wrapperRect.width - width) * 0.5 : 0;
                 top = this.mode === 'cover' ? 0 : (wrapperRect.height - height) * 0.5;
             }
-            this.video.style.width = width + 'px';
-            this.video.style.height = height + 'px';
-            this.video.style.transform = 'translate(' + left + 'px, ' + top + 'px)';
+
+            this.videoWrapper.style.width = width + 'px';
+            this.videoWrapper.style.height = height + 'px';
+            this.videoWrapper.style.transform = 'translate(' + left + 'px, ' + top + 'px)';
 
             if (typeof this.callback === 'function') {
                 this.callback({ width: width, height: height });

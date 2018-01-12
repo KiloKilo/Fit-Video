@@ -1,6 +1,8 @@
 export default class FitVideo {
-    constructor(wrapper, video, mode = 'cover', callback = () => {}) {
+    constructor(wrapper, videoWrapper, video, mode = 'cover', callback = () => {
+    }) {
         this.wrapper = wrapper;
+        this.videoWrapper = videoWrapper;
         this.video = video;
         this.mode = mode;
         this.callback = callback;
@@ -31,17 +33,18 @@ export default class FitVideo {
         if (wrapperAspect > this.videoAspect) {
             width = this.mode === 'cover' ? wrapperRect.width : wrapperRect.height * this.videoAspect;
             height = this.mode === 'cover' ? width / this.videoAspect : wrapperRect.height;
-            left = this.mode === 'cover' ? 0 : (wrapperRect.width - width ) * 0.5;
-            top = this.mode === 'cover' ? (wrapperRect.height - height ) * 0.5 : 0;
+            left = this.mode === 'cover' ? 0 : (wrapperRect.width - width) * 0.5;
+            top = this.mode === 'cover' ? (wrapperRect.height - height) * 0.5 : 0;
         } else {
             height = this.mode === 'cover' ? wrapperRect.height : wrapperRect.width / this.videoAspect;
             width = this.mode === 'cover' ? height * this.videoAspect : wrapperRect.width;
             left = this.mode === 'cover' ? (wrapperRect.width - width) * 0.5 : 0;
             top = this.mode === 'cover' ? 0 : (wrapperRect.height - height) * 0.5;
         }
-        this.video.style.width = `${width}px`;
-        this.video.style.height = `${height}px`;
-        this.video.style.transform = `translate(${left}px, ${top}px)`;
+
+        this.videoWrapper.style.width = `${width}px`;
+        this.videoWrapper.style.height = `${height}px`;
+        this.videoWrapper.style.transform = `translate(${left}px, ${top}px)`;
 
         if (typeof this.callback === 'function') {
             this.callback({width, height});
