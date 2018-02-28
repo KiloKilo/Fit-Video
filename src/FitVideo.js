@@ -42,6 +42,11 @@ export default class FitVideo {
             top = this.mode === 'cover' ? 0 : (wrapperRect.height - height) * 0.5;
         }
 
+        width = Math.ceil(width);
+        height = Math.ceil(height);
+        left = Math.ceil(left);
+        top = Math.ceil(top);
+
         this.videoWrapper.style.width = `${width}px`;
         this.videoWrapper.style.height = `${height}px`;
         this.videoWrapper.style.transform = `translate(${left}px, ${top}px)`;

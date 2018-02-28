@@ -7,7 +7,7 @@
 		exports["FitVideo"] = factory();
 	else
 		root["FitVideo"] = factory();
-})(this, function() {
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -136,7 +136,6 @@ var FitVideo = function () {
             var left = void 0;
 
             if (wrapperAspect > this.videoAspect) {
-                console.log(12);
                 width = this.mode === 'cover' ? wrapperRect.width : wrapperRect.height * this.videoAspect;
                 height = this.mode === 'cover' ? width / this.videoAspect : wrapperRect.height;
                 left = this.mode === 'cover' ? 0 : (wrapperRect.width - width) * 0.5;
@@ -147,6 +146,11 @@ var FitVideo = function () {
                 left = this.mode === 'cover' ? (wrapperRect.width - width) * 0.5 : 0;
                 top = this.mode === 'cover' ? 0 : (wrapperRect.height - height) * 0.5;
             }
+
+            width = Math.ceil(width);
+            height = Math.ceil(height);
+            left = Math.ceil(left);
+            top = Math.ceil(top);
 
             this.videoWrapper.style.width = width + 'px';
             this.videoWrapper.style.height = height + 'px';
